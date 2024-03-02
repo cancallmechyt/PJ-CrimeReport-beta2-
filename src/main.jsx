@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import Home from './compunents/Home.jsx'
-import Register from './compunents/Register.jsx'
+import Register1 from './compunents/Register1.jsx'
 import FormIncidence from './Incidence/FormIncidence.jsx'
 import ListIncidence from './Incidence/ListIncidence.jsx'
 
@@ -16,7 +16,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/register",
-    element: <Register />,
+    element: <Register1 />,
   },
   {
     path: "/home",

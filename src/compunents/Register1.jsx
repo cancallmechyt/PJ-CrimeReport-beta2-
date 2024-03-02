@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import liff from "@line/liff";
 import useAxios from '../useAxios'; // เพิ่มการ import axios
 
-function Register() {
+function Register1() {
     const [profile, setProfile] = useState(null);
     const [errorMessage, setErrorMessage] = useState('');
 
@@ -125,4 +125,4 @@ function Register() {
     );
 }
 
-export default Register;
+export default Register1;

@@ -1,10 +1,10 @@
-import Register from './compunents/Register'
+import Register1 from './compunents/Register1'
 
 function App() {
  
   return (
       <div>  
-        <Register/>
+        <Register1/>
       </div>
   )
 }
