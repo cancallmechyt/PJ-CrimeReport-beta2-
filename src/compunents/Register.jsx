@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import liff from "@line/liff";
-import axios from 'axios'; // เพิ่มการ import axios
+import useAxios from '../useAxios'; // เพิ่มการ import axios
 
 function Register() {
     const [profile, setProfile] = useState(null);
@@ -56,7 +56,7 @@ function Register() {
 
         try {
             // ส่งข้อมูลไปยังเซิร์ฟเวอร์ผ่าน Axios
-            await axios.post('/register', data); // เปลี่ยน '/api/addMember' เป็น URL ของ API ที่คุณสร้างขึ้นในเซิร์ฟเวอร์
+            await useAxios.post('/register', data); // เปลี่ยน '/api/addMember' เป็น URL ของ API ที่คุณสร้างขึ้นในเซิร์ฟเวอร์
             window.location.href = '/home'; // เมื่อสมัครสมาชิกเสร็จสิ้นให้เปลี่ยนไปยังหน้า Home
         } catch (error) {
             console.error('Error adding member:', error);
