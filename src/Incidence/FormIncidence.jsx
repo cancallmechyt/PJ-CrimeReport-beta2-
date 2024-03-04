@@ -18,7 +18,7 @@ function Incidence() {
                     const userProfile = await liff.getProfile();
                     setProfile(userProfile);
                 }
-            } catch (e) {console.log("")}
+            } catch (e) {console.log()}
         };  initializeLiff();  
         return () => { };
     }, []);

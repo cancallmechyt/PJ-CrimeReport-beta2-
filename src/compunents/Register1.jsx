@@ -25,13 +25,13 @@ function Register1() {
         return () => {};
     }, []);
     
-    const handleSubmit = async () => { // เปลี่ยนเป็น async function
+    const handleSubmit = async () => { 
         const firstName = document.getElementById('fname').value.trim();
         const lastName = document.getElementById('lname').value.trim();
         const collage = document.getElementById('collage').value.trim();
         const major = document.getElementById('major').value.trim();
         const studentcode = document.getElementById('studentcode').value.trim();
-    
+
         const studentCodeRegex = /^(62|63|64|65|66)\d{5}$/;
     
         if (firstName === '' || lastName === '' || collage === '' || major === '' || studentcode === '') {
@@ -44,7 +44,6 @@ function Register1() {
             return;
         }
 
-        // เตรียมข้อมูลที่จะส่งไปยังเซิร์ฟเวอร์
         const data = {
             userId: profile.userId,
             Fname: firstName,
@@ -63,24 +62,15 @@ function Register1() {
         }
     };
     
-    // logout function เอาออกหลังจากทดสอบ
-    const logout = async () =>{
-        liff.logout();
-        window.location.reload();
-    }
-
     return (
         <div>
             <h1>Register</h1>
                 {profile ? (
                     <div className="lineProfile">
                         <img id="lineImg" width="150px" src={profile.pictureUrl} alt="Line Image"/>
-                        <div id="displayname">สวัสดีคุณ {profile.displayName}</div>
-                        
+                        <div id="displayname">สวัสดีคุณ {profile.displayName}</div>                        
                     </div>
-                ) : (
-                        <div>Loading...</div>
-                )}
+                ) : ( <div>Loading...</div> )}
 
                     {/* Register */}
                     <div className='register'>
@@ -113,11 +103,7 @@ function Register1() {
 
                     {/* Display Error Message */}
                     {errorMessage && ( <div className="error-message">{errorMessage}</div> )}
-
-                    {/* Button */}
                     <div className='btn=group'>
-                        <button id="logout" onClick={logout}>Logout</button>
-                        <br />
                         <button id="register" onClick={handleSubmit}>Register</button>
                         {/* หลังสมัครจะบังคับส่งข้อความไปที่ LineOA แล้วจะปิดหน้าต่าง Liff ทิ้ง */}
                     </div>

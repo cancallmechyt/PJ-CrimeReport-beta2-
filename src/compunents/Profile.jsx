@@ -34,10 +34,9 @@ const Profile = () => {
                 <div className="lineProfile">
                     <img id="lineImg" width="150px" src={profile.pictureUrl} alt="Line Image"/>
                     <div id="displayname">สวัสดีคุณ {profile.displayName}</div> 
-                    <div>Fname: {profile.Fname}</div>
-                    <div>LName: {profile.Lname}</div>       
-                    <div>Collage: {profile.Collage}</div>
-                    <div>Major: {profile.Major}</div>   
+                    <div>{profile.Fname} {profile.Lname}</div>  
+                    <div>Collage of : {profile.Collage}</div>
+                    <div>Major : {profile.Major}</div>   
                 </div>
             ) : (
                 <div>Loading...</div>
