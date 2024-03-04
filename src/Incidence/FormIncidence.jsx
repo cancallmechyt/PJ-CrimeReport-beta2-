@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import { useState, useEffect } from 'react';
+import liff from '@line/liff';
 
 function Incidence() {
     const [files, setFiles] = useState([]);
@@ -7,6 +8,20 @@ function Incidence() {
     const [title, setTitle] = useState('');
     const [detail, setDetail] = useState('');
     const [location, setLocation] = useState('');
+    const [setProfile] = useState(null);
+
+    useEffect(() => {
+        const initializeLiff = async () => {
+            try {
+                await liff.init({ liffId: '2003845535-ZB3wNLYm' });
+                if (liff.isLoggedIn()) {
+                    const userProfile = await liff.getProfile();
+                    setProfile(userProfile);
+                }
+            } catch (e) {console.log("")}
+        };  initializeLiff();  
+        return () => { };
+    }, []);
 
     const handleFileChange = (event) => {
         const selectedFiles = Array.from(event.target.files);

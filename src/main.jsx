@@ -2,6 +2,10 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import Home from './compunents/Home.jsx'
+import About from './compunents/About.jsx'
+import Guide from './compunents/Guide.jsx'
+import Profile from './compunents/Profile.jsx'
+import LostItem from './compunents/LostItem.jsx'
 import Register1 from './compunents/Register1.jsx'
 import FormIncidence from './Incidence/FormIncidence.jsx'
 import ListIncidence from './Incidence/ListIncidence.jsx'
@@ -29,6 +33,22 @@ const router = createBrowserRouter([
   {
     path: "/list",
     element: <ListIncidence />,
+  },
+  {
+    path: "/lostitem",
+    element: <LostItem />,
+  },
+  {
+    path: "/about",
+    element: <About />,
+  },
+  {
+    path: "/guide",
+    element: <Guide />,
+  },
+  {
+    path: "/profile",
+    element: <Profile />,
   },
 ]);
 

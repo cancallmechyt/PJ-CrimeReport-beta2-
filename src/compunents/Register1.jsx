@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import liff from "@line/liff";
-import useAxios from '../useAxios'; // เพิ่มการ import axios
+import useAxios from '../useAxios'; 
 
 function Register1() {
     const [profile, setProfile] = useState(null);
@@ -24,7 +24,7 @@ function Register1() {
 
         return () => {};
     }, []);
-
+    
     const handleSubmit = async () => { // เปลี่ยนเป็น async function
         const firstName = document.getElementById('fname').value.trim();
         const lastName = document.getElementById('lname').value.trim();
@@ -55,15 +55,15 @@ function Register1() {
         };
 
         try {
-            // ส่งข้อมูลไปยังเซิร์ฟเวอร์ผ่าน Axios
-            await useAxios.post('/register', data); // เปลี่ยน '/api/addMember' เป็น URL ของ API ที่คุณสร้างขึ้นในเซิร์ฟเวอร์
-            window.location.href = '/home'; // เมื่อสมัครสมาชิกเสร็จสิ้นให้เปลี่ยนไปยังหน้า Home
+            // Connect API 
+            await useAxios.post('/register', data); 
+            window.location.href = '/home'; 
         } catch (error) {
             console.error('Error adding member:', error);
         }
     };
     
-    // logout function
+    // logout function เอาออกหลังจากทดสอบ
     const logout = async () =>{
         liff.logout();
         window.location.reload();
@@ -76,7 +76,7 @@ function Register1() {
                     <div className="lineProfile">
                         <img id="lineImg" width="150px" src={profile.pictureUrl} alt="Line Image"/>
                         <div id="displayname">สวัสดีคุณ {profile.displayName}</div>
-                        <div id="UID">UID: {profile.userId}</div>
+                        
                     </div>
                 ) : (
                         <div>Loading...</div>
