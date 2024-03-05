@@ -13,8 +13,8 @@ function Home() {
 
   const handleLogin = async () => {
     try {
-      const profile = await liff.getProfile();
-      console.log(profile)
+      // const profile = await liff.getProfile();
+      // console.log(profile)
     } catch(err) { console.error(err); }
   };
 
@@ -24,7 +24,7 @@ function Home() {
         <div className="Pages">
           <Link to="/lostitem">LostItemPage</Link><br />
           <Link to="/form">FormPage</Link><br />
-          <Link to="/list">ListPage</Link><br />
+          <Link to="/list">MyListPage</Link><br />
           <Link to="/about">AboutPage</Link><br />
           <Link to="/guide">GuidePage</Link><br />
           <Link to="/profile">Profile</Link><br />

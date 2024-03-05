@@ -1,110 +1,124 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import liff from '@line/liff';
 
 function Incidence() {
-    const [files, setFiles] = useState([]);
-    const [previewUrls, setPreviewUrls] = useState([]);
-    const [category, setCategory] = useState('');
-    const [title, setTitle] = useState('');
-    const [detail, setDetail] = useState('');
-    const [location, setLocation] = useState('');
-    const [setProfile] = useState(null);
+  const [profile, setProfile] = useState(null);
+  const [images, setImages] = useState([]);
+  const [isDragging, setIsDragging] = useState(false);
+  const fileInputRef = useRef(null);
 
-    useEffect(() => {
-        const initializeLiff = async () => {
-            try {
-                await liff.init({ liffId: '2003845535-ZB3wNLYm' });
-                if (liff.isLoggedIn()) {
-                    const userProfile = await liff.getProfile();
-                    setProfile(userProfile);
-                }
-            } catch (e) {console.log()}
-        };  initializeLiff();  
-        return () => { };
-    }, []);
+  useEffect(() => {
+    const initializeLiff = async () => {
+      try {
+        await liff.init({ liffId: '2003845535-ZB3wNLYm' });
+        if (liff.isLoggedIn()) {
+          const userProfile = await liff.getProfile();
+          const item = JSON.parse(localStorage.getItem('LIFF_STORE:2003845535-ZB3wNLYm:context'));
+          if (item) {
+            const profileDeepCopy = JSON.parse(JSON.stringify(userProfile));
+            const ssprofile = Object.assign({}, profileDeepCopy);
+            setProfile(ssprofile);
+            console.log(item.userId);
+          }
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    initializeLiff();
+  }, []);
 
-    const handleFileChange = (event) => {
-        const selectedFiles = Array.from(event.target.files);
-        const newFiles = [...files, ...selectedFiles.slice(0, 5 - files.length)];
-        setFiles(newFiles);
+  function selectFiles() {
+    fileInputRef.current.click();
+  }
 
-        const newPreviewUrls = newFiles.map(file => URL.createObjectURL(file));
-        setPreviewUrls(newPreviewUrls);
+  function onFileSelect(event) {
+    const files = event.target.files;
+    if (!files.length) return;
+    for (const file of files) {
+      if (file.type.split('/')[0] !== 'image') continue;
+      if (!images.some((image) => image.name === file.name)) {
+        setImages((prevImages) => [
+          ...prevImages,
+          { name: file.name, url: URL.createObjectURL(file) },
+        ]);
+      }
     }
+  }
 
-    const handleSubmit = () => {
-        // ทำการส่งข้อมูลทั้งหมดไปยังเซิร์ฟเวอร์ที่นี่
-        console.log('Category:', category);
-        console.log('Title:', title);
-        console.log('Detail:', detail);
-        console.log('Location:', location);
-        console.log('Files:', files);
-    }
+  function deleteImage(index) {
+    setImages((prevImages) => prevImages.filter((_, i) => i !== index));
+  }
 
-    const handleRemoveImage = (indexToRemove) => {
-        const updatedFiles = files.filter((_, index) => index !== indexToRemove);
-        setFiles(updatedFiles);
+  function handleDragEvents(event) {
+    event.preventDefault();
+    setIsDragging(event.type === 'dragover');
+  }
 
-        const updatedPreviewUrls = updatedFiles.map(file => URL.createObjectURL(file));
-        setPreviewUrls(updatedPreviewUrls);
-    }
+  function handleDrop(event) {
+    handleDragEvents(event);
+    const files = event.dataTransfer.files;
+    onFileSelect({ target: { files } });
+  }
 
-    return (
-        <div>
-            <h1>Incidence</h1>
-            <div className='Form-'>
-                {/* Category */}
-                <div className='Category'>
-                    <label htmlFor="Category">Category: </label>
-                    <select id="category" onChange={(e) => setCategory(e.target.value)}>
-                        <option value="incident">แจ้งเหตุ</option>
-                        <option value="lost">ของหาย</option>
-                    </select>
-                </div>
+  const onSubmit = async () => {
+    console.log("Submit", images );
+  };
 
-                {/* Title */}
-                <div className='Title'>
-                    <label htmlFor="Title">Title: </label>
-                    <input type="text" id="title" onChange={(e) => setTitle(e.target.value)} />
-                </div>
+  const onBack = async () => {
+    window.location.href = '/home';
+  };
 
-                {/* Location */}
-                <div className='Location'>
-                    <label htmlFor="Location">Location: </label>
-                    <select id="location" onChange={(e) => setLocation(e.target.value)}>
-                        <option value="incident">ตึก1</option>
-                        <option value="lost">ตึก2</option>
-                        <option value="incident">ตึก3</option>
-                        <option value="lost">ตึก4</option>
-                    </select>
-                </div>
-
-                {/* Detail */}
-                <div className='Detail'>
-                    <label htmlFor="Detail">Detail: </label>
-                    <input type="text" id="detail" onChange={(e) => setDetail(e.target.value)} />
-                </div>
-
-                {/* Image Preview */}
-                {previewUrls.map((previewUrl, index) => (
-                    <div key={index}>
-                        <img src={previewUrl} alt={`Preview ${index}`} style={{ maxWidth: '50px', maxHeight: '50px', marginRight: '5px' }} />
-                        <button onClick={() => handleRemoveImage(index)}>Remove</button>
-                    </div>
-                ))}
-
-                {/* Upload */}
-                <div>
-                    <input type="file" onChange={handleFileChange} multiple accept="image/*" />
-                </div>
-
-                
-            </div>
-            <button className='OnSubmit' onClick={handleSubmit}>Submit</button>
-            <br />
-            <label className='GoBack'>back</label>
+  return (
+    <div>
+      <h1>Incidence Form</h1>
+      <div className='Form-'>
+        <br />
+        <label className="title">Title: </label>
+        <input type="text" id="title" /><br />
+        <label className="category">Category : </label>
+        <select id="category">
+          <option value="Incidence">Incidence</option>
+          <option value="LostItem">LostItem</option>
+        </select><br />
+        <label className="detail">Detail : </label>
+        <input type="text" id="detail" /><br />
+        <label className="building">Building : </label>
+        <select id="building">
+          <option value="Building 1">Building 1</option>
+          <option value="Building 2">Building 2</option>
+          <option value="Building 3">Building 3</option>
+        </select><br />
+        <div className='card'>
+          <div className='drag-area' onDragOver={handleDragEvents} onDragLeave={handleDragEvents} onDrop={handleDrop}>
+            {isDragging ? (
+              <span className='select'>Drop img here</span>
+              ) : (
+              <>
+                Drag & Drop img here or{' '}
+                <span className='select' role='button' onClick={selectFiles}>
+                  Browse
+                </span>
+              </>
+            )}
+            <input name='file' type='file' className='file' multiple ref={fileInputRef} onChange={onFileSelect}/>
+          </div>
+          <div className='container'>
+            {images.map((image, index) => (
+              <div className='image' key={index}>
+                <img src={image.url} width="75" height="75" alt={image.name} />
+                <span className='delete' onClick={() => deleteImage(index)}>
+                  &times;
+                </span>
+              </div>
+            ))}
+          </div>
         </div>
-    )
+        <button className="btn-submit" onClick={onSubmit}>Submit</button><br />
+        <label className='label-click' onClick={onBack}>Back</label>
+      </div>
+    </div>
+  );
 }
 
 export default Incidence;

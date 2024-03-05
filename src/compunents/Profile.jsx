@@ -27,6 +27,10 @@ const Profile = () => {
         window.location.href = '/register';
     }
 
+    const onBack = async () => {
+        window.location.href = '/home';
+      };
+
     return (
         <div>
             <h1>Profile</h1>
@@ -41,7 +45,8 @@ const Profile = () => {
             ) : (
                 <div>Loading...</div>
             )}
-            <button id="logout" onClick={logout}>Logout</button>
+            <button id="logout" onClick={logout}>Logout</button><br />
+            <label className='label-click' onClick={onBack}>Back</label>
         </div>
     );
 }
