@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const useAxios = axios.create({
-    baseURL: "http://localhost:5000", // DatabaseUrl
+    baseURL: "https://2d52-2403-6200-88a2-c598-a987-a76a-b6b2-6598.ngrok-free.app", // DatabaseUrl
     headers: {
         Authorization: `Bearer ${
           localStorage.getItem("user")!= null /*  .token, != null */
