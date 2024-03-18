@@ -9,7 +9,7 @@ function LostItem() {
   useEffect(() => {
     const fetchAPI = async () => {
       try {
-        const response = await useAxios.get('/post/category/ของหาย');
+        const response = await useAxios.get('https://6902-2403-6200-88a2-c598-a987-a76a-b6b2-6598.ngrok-free.app/post/category/ของหาย');
         setData(response.data);
       } catch (error) {
         console.error('Error fetching data:', error);
