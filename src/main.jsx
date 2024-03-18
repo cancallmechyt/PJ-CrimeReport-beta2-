@@ -9,6 +9,7 @@ import LostItem from './compunents/LostItem.jsx'
 import Register1 from './compunents/Register1.jsx'
 import FormIncidence from './Incidence/FormIncidence.jsx'
 import ListIncidence from './Incidence/ListIncidence.jsx'
+import StaffHome from './Police/StaffHome.jsx'
 
 import './index.css'
 import {createBrowserRouter, RouterProvider,} from "react-router-dom";
@@ -49,6 +50,10 @@ const router = createBrowserRouter([
   {
     path: "/profile",
     element: <Profile />,
+  },
+  {
+    path: "/staffhome",
+    element: <StaffHome />,
   },
 ]);
 

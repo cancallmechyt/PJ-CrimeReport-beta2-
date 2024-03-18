@@ -12,7 +12,7 @@ const Profile = () => {
                     const userProfile = await liff.getProfile();                                   
                     const item = JSON.parse(localStorage.getItem('LIFF_STORE:2003845535-ZB3wNLYm:context'))    
                     if(item){
-                        const userinfo = (await useAxios.get(`/profile/${item.userId}`)).data[0];
+                        const userinfo = (await useAxios.get(`/users/profile/${item.userId}`)).data[0];
                         const profiledeepcopy = JSON.parse(JSON.stringify(userProfile))
                         const ssprofile = Object.assign(profiledeepcopy, userinfo)
                         setProfile(ssprofile)

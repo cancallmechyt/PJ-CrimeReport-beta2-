@@ -33,34 +33,48 @@ function Register1() {
         const studentcode = document.getElementById('studentcode').value.trim();
 
         const studentCodeRegex = /^(62|63|64|65|66)\d{5}$/;
+        const staffCodeRegex = /^PP\d{5}$/; // เพิ่ม staffCodeRegex
     
-        if (firstName === '' || lastName === '' || collage === '' || major === '' || studentcode === '') {
+        if (firstName === '' || lastName === '' || collage === '' || major === '' || studentcode === '' ) { 
             setErrorMessage('โปรดกรอกข้อมูลให้ครบถ้วน');
             return;
         }
-    
-        if (!studentCodeRegex.test(studentcode)) {
-            setErrorMessage('รหัสนักศึกษาไม่ถูกต้อง');
+        
+        let role = '';
+        if (studentCodeRegex.test(studentcode)) {
+            role = 'user';
+        } else if (staffCodeRegex.test(studentcode)) { // แก้เปลี่ยนจาก studentcode เป็น staffcode
+            role = 'police';
+        } else {
+            setErrorMessage('รหัสนักศึกษาหรือรหัสเจ้าหน้าที่ไม่ถูกต้อง');
             return;
         }
-
+    
         const data = {
             userId: profile.userId,
             Fname: firstName,
             Lname: lastName,
             Collage: collage,
             Major: major,
-            StudentCode: studentcode
+            StudentCode: studentcode,
+            Role: role
         };
-
+        
         try {
             // Connect API 
-            await useAxios.post('/register', data); 
-            window.location.href = '/home'; 
+            await useAxios.post('/users/register', data); 
+            if (role === 'user') {
+                window.location.href = '/home'; // ถ้าเป็น user ให้ไปที่ /home
+            } else if (role === 'police') {
+                window.location.href = '/staffhome'; // ถ้าเป็น police ให้ไปที่ /StaffHome
+            }
         } catch (error) {
             console.error('Error adding member:', error);
+            setErrorMessage('มีข้อผิดพลาดในการลงทะเบียน');
         }
+        
     };
+    
     
     return (
         <div>
