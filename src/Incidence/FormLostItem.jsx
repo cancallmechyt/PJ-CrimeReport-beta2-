@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import useAxios from '../useAxios';
+
 // FireBase
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { imageDb } from '../firebase';
 
-function FormIncidence() {
+function FormLostItem() {
   const [selectedImage, setSelectedImage] = useState(null);
 
   const handleImageChange = (e) => {
@@ -17,7 +18,7 @@ function FormIncidence() {
     const userId = item.userId; 
     const title = document.getElementById('Title').value;
     const location = document.getElementById('Location').value;
-    const category = 'incident';
+    const category = document.getElementById('Category').value;
 
     try {
       if (selectedImage) {
@@ -48,9 +49,13 @@ function FormIncidence() {
 
   return (
     <div>
-      <h1>FormIncidence</h1>
+      <h1>FormLostitem</h1>
       <form>
         <input type="text" id="Title" /><br />
+        <select id="Category">
+          <option value="Lostitem">Lostitem</option>
+          <option value="Finditem">Finditem</option>
+        </select><br />
         <select id="Location">
           <option value="Building A">Building A</option>
           <option value="Building B">Building B</option>
@@ -63,4 +68,4 @@ function FormIncidence() {
   );
 }
 
-export default FormIncidence;
+export default FormLostItem;

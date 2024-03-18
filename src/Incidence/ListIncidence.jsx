@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import useAxios from '../useAxios';
 import moment from 'moment';
+import { Link } from "react-router-dom";
 
 function LostItem() {
   const [data, setData] = useState([]);
@@ -9,7 +10,7 @@ function LostItem() {
     const fetchAPI = async () => {
       try {
         const item = JSON.parse(localStorage.getItem('LIFF_STORE:2003845535-ZB3wNLYm:context'));
-        const response = await useAxios.get(`/post/incident/${item.userId}`);
+        const response = await useAxios.get(`/post/incident/user/${item.userId}`);
         setData(response.data);
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -24,15 +25,16 @@ function LostItem() {
   const onBack = async () => {
     window.location.href = '/home';
   };
-
+  //<Link to={user.id}>{user.name}</Link>
   return (
     <div>
       <h1>MyList</h1>
       <ul>
       {data.map((val) => (
       <li key={val.Post_id}>
-        <p>{"ID : " + val.Post_id}</p>
-        <p>{"Title : " + val.title}</p>
+        <Link to={`/post/incident/${val.Post_id}`}>
+          <h2 className='Title'>{val.title}</h2>
+        </Link>
         <p>{"Detail : " + val.detail}</p>
         <p>{"Category : " + val.category}</p>
         <p>{"Location : " + val.location}</p>

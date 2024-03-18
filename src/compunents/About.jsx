@@ -1,4 +1,3 @@
-
 function About() {
   const onBack = async () => {
     window.location.href = '/home';

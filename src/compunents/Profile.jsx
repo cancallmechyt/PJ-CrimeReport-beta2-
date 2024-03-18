@@ -29,7 +29,7 @@ const Profile = () => {
 
     const onBack = async () => {
         window.location.href = '/home';
-      };
+    };
 
     return (
         <div>

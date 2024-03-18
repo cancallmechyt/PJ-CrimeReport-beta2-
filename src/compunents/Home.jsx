@@ -28,6 +28,7 @@ function Home() {
           <Link to="/about">AboutPage</Link><br />
           <Link to="/guide">GuidePage</Link><br />
           <Link to="/profile">Profile</Link><br />
+          <Link to="/staffhome">Staff</Link><br />
         </div>
     </div>
   );

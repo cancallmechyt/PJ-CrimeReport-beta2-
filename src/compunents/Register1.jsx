@@ -18,10 +18,7 @@ function Register1() {
                     setProfile(userProfile);
                 }
             } catch (e) {console.log("")}
-        };
-
-        initializeLiff();
-
+        }; initializeLiff();
         return () => {};
     }, []);
     

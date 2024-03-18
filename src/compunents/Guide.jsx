@@ -1,7 +1,4 @@
-
-
 function Guide() {
-
   const onBack = async () => {
     window.location.href = '/home';
   };
