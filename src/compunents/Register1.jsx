@@ -51,15 +51,15 @@ function Register1() {
             userId: profile.userId,
             Fname: firstName,
             Lname: lastName,
-            Collage: collage,
+            College: collage,
             Major: major,
-            StudentCode: studentcode,
+            Usercode: studentcode,
             Role: role
         };
         
         try {
             // Connect API 
-            await useAxios.post('/users/register', data); 
+            await useAxios.post('/members/register', data); 
             if (role === 'user') {
                 window.location.href = '/home'; // ถ้าเป็น user ให้ไปที่ /home
             } else if (role === 'police') {

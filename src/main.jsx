@@ -15,6 +15,7 @@ import SingleForm from './Incidence/SingleForm.jsx'
 import FormLostItem from './Incidence/FormLostItem.jsx'
 import EditForm from './Incidence/EditForm.jsx'
 import CheckList from './Police/CheckList.jsx'
+import EditStaff from './Police/EditStaff.jsx'
 
 import './index.css'
 import {createBrowserRouter, RouterProvider,} from "react-router-dom";
@@ -73,13 +74,18 @@ const router = createBrowserRouter([
     element: <CheckList />,
   },
   {
-    path: "/post/incident/:Post_id",
+    path: "/posts/:pid",
     element: <SingleForm />,
   },
   {
-    path: "/post/incident/edit/:Post_id",
+    path: "/posts/edit/:pid",
     element: <EditForm />,
   },
+  {
+    path: "/posts/editstaff/:pid",
+    element: <EditStaff />,
+  },
+
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(

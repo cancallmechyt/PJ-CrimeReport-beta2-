@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useEffect} from 'react';
 import liff from "@line/liff";
+import '../Style/Home.css';
 
 function Home() {
   useEffect(() => {

@@ -26,7 +26,7 @@ function FormLostItem() {
         await uploadBytes(imageRef, selectedImage);
         const imageUrl = await getDownloadURL(imageRef);
 
-        const response = await useAxios.post('/post/incident/test/', {
+        const response = await useAxios.post('/posts/form/', {
           userId,
           title,
           images: imageUrl, // Get Url from firebase 
@@ -49,23 +49,42 @@ function FormLostItem() {
 
   return (
     <div>
-      <h1>FormLostitem</h1>
+      <h1>แจ้งของหาย/ตามหาของ</h1>
       <form>
-        <input type="text" id="Title" /><br />
-        <select id="Category">
-          <option value="Lostitem">Lostitem</option>
-          <option value="Finditem">Finditem</option>
-        </select><br />
-        <select id="Location">
-          <option value="Building A">Building A</option>
-          <option value="Building B">Building B</option>
-        </select><br />
-        <input type="file" onChange={handleImageChange} /><br />
-        <button type="button" onClick={handleSubmit} >Submit</button><br />
-        <button type="button" onClick={onBack}>Back</button><br />
+        <label>หัวข้อ : </label>
+          <input type="text" id="Title" /><br />
+          <label>รายละเอียด : </label>
+          <input type="text" id="Detail" /><br />
+          <label>หมวดหมู่ : </label>
+          <select id="Category">
+            <option value="ของหาย">ของหาย</option>
+            <option value="ตามหาของ">ตามหาของ</option>
+          </select><br />
+          <label>สถานที่ : </label>
+          <select id="Location">
+            <option value="ตึก 1">ตึก 1</option>
+            <option value="ตึก 2">ตึก 2</option>
+            <option value="ตึก 3">ตึก 3</option>
+            <option value="ตึก 4">ตึก 4</option>
+            <option value="ตึก 5">ตึก 5</option>
+            <option value="ตึก 6">ตึก 6</option>
+            <option value="ตึก 7">ตึก 7</option>
+            <option value="ตึก 8">ตึก 8</option>
+            <option value="ตึก 9">ตึก 9</option>
+            <option value="ตึก 10">ตึก 10</option>
+            <option value="ตึก 11">ตึก 11</option>
+            <option value="ตึก 12">ตึก 12</option>
+            <option value="ตึก 13">ตึก 13</option>
+            <option value="ตึก 14">ตึก 14</option>
+            <option value="ตึก 15">ตึก 15</option>
+          </select><br />
+          <input type="file" onChange={handleImageChange} /><br />
+          <button type="button" onClick={handleSubmit} >Submit</button><br />
+          <label type="button" onClick={onBack}>Back</label><br />
       </form>
     </div>
   );
 }
 
 export default FormLostItem;
+

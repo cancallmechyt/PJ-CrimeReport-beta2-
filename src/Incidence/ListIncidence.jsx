@@ -3,21 +3,19 @@ import useAxios from '../useAxios';
 import moment from 'moment';
 import { Link } from "react-router-dom";
 
-function LostItem() {
+function ListIncidence() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
     const fetchAPI = async () => {
       try {
         const item = JSON.parse(localStorage.getItem('LIFF_STORE:2003845535-ZB3wNLYm:context'));
-        const response = await useAxios.get(`/post/incident/user/${item.userId}`);
+        const response = await useAxios.get(`/posts/user/${item.userId}`);
         setData(response.data);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
-    };
-
-    fetchAPI();
+    };  fetchAPI();
   }, []); 
 
   console.log(data);
@@ -25,28 +23,30 @@ function LostItem() {
   const onBack = async () => {
     window.location.href = '/home';
   };
-  //<Link to={user.id}>{user.name}</Link>
+
   return (
     <div>
       <h1>MyList</h1>
       <ul>
-      {data.map((val) => (
-      <li key={val.Post_id}>
-        <Link to={`/post/incident/${val.Post_id}`}>
-          <h2 className='Title'>{val.title}</h2>
-        </Link>
-        <p>{"Detail : " + val.detail}</p>
-        <p>{"Category : " + val.category}</p>
-        <p>{"Location : " + val.location}</p>
-        <p>{"Date : " + moment(val.date).format('DD/MM/YYYY')}</p> 
-        <p>{"Images : "}</p>
-        <img src={val.images} width="100" height="100" alt="Post Image" />
-      </li>
-      ))}
+        {data.map((val) => (
+          <li key={val.pid}>
+            <Link to={`/posts/${val.pid}`}>
+              <h2 className='Title'>{val.Title}</h2>
+            </Link>
+              <p>{"สถานะ : " + val.PostStatus}</p>
+              <p>{"รายละเอียด : " + val.Detail}</p>
+              <p>{"หมวดหมู่ : " + val.Category}</p>
+              <p>{"สถานที่ : " + val.Location}</p>
+              <p>{"วัน/เดือน/ปี : " + moment(val.Date).format('DD/MM/YYYY')}</p> 
+              <p>{"เวลา : " + moment(val.Time, 'HH:mm').format('HH:mm') + " น."}</p> 
+              <img src={val.Images} width="150" height="150" alt="Post Image" />
+              <p>{"หมายเหตุ : " + val.Note}</p>
+          </li>
+        ))}
       </ul>
-      <button id="onBack" onClick={onBack}>Back</button><br />
+      <label id="onBack" onClick={onBack}>กลับ</label><br />
     </div>
   );
 }
 
-export default LostItem;
+export default ListIncidence;

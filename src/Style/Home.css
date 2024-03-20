@@ -1,0 +1,32 @@
+.home-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  /* Heading style */
+  .home-container h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 36px;
+    color: #333;
+  }
+  
+  /* Styling for the links */
+  .Pages {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .Pages a {
+    text-decoration: none;
+    color: #007bff;
+    font-size: 20px;
+    margin-bottom: 15px;
+    transition: color 0.3s ease;
+  }
+  
+  .Pages a:hover {
+    color: #0056b3;
+  }
+  
