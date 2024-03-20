@@ -17,7 +17,7 @@ function FormIncidence() {
     const userId = item.userId; 
     const Title = document.getElementById('Title').value;
     const Detail = document.getElementById('Detail').value;
-    const Location = document.getElementById('Location').value;
+    const Locations = document.getElementById('Location').value;
     const Category = 'แจ้งเหตุ';
     const PostStatus = 'กำลังดำเนินการ';
     const Note = 'หมายเหตุ';
@@ -28,17 +28,19 @@ function FormIncidence() {
         await uploadBytes(imageRef, selectedImage);
         const imageUrl = await getDownloadURL(imageRef);
   
-        const response = await useAxios.post('/posts/form/', {
+        const response = await useAxios.post('/posts/form', {
           userId,
           Title,
-          Location,
+          Locations,
           Category,
           Detail,
           Images: imageUrl, // Get Url from firebase 
           PostStatus,
           Note
         });
-  
+        
+        alert('สร้างฟอร์มสำเร็จ')
+        window.location.href = '/home'
         console.log('Response:', response.data);
       } 
     } catch (error) { console.error('Error:', error); }
@@ -76,6 +78,7 @@ function FormIncidence() {
           <option value="ตึก 15">ตึก 15</option>
         </select><br />
         <input type="file" onChange={handleImageChange} /><br />
+        {selectedImage && ( <img src={URL.createObjectURL(selectedImage)} alt="Selected" width="150" height="150" /> )} <br/>
         <button type="button" onClick={handleSubmit} >Submit</button><br />
         <label type="button" onClick={onBack}>Back</label><br />
       </form>

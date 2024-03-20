@@ -46,8 +46,8 @@ function FindItem() {
                 <h2 className='Title'>{val.Title}</h2>
               </Link>
               <p>{"รายละเอียด : " + val.Detail}</p>
-              <p>{"สถานที่ : " + val.Location}</p>
-              <p>{"วัน/เดือน/ปี : " + moment(val.Date).format('DD/MM/YYYY')}</p> 
+              <p>{"สถานที่ : " + val.Locations}</p>
+              <p>{"วัน/เดือน/ปี : " + moment(val.Dates).format('DD/MM/YYYY')}</p> 
               <p>{"เวลา : " + moment(val.Time, 'HH:mm').format('HH:mm') + " น."}</p>
               <img src={val.Images} width="100" height="100" />
             </li>

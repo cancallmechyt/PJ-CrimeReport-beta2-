@@ -16,9 +16,12 @@ function FormLostItem() {
     e.preventDefault();
     const item = JSON.parse(localStorage.getItem('LIFF_STORE:2003845535-ZB3wNLYm:context')); 
     const userId = item.userId; 
-    const title = document.getElementById('Title').value;
-    const location = document.getElementById('Location').value;
-    const category = document.getElementById('Category').value;
+    const Title = document.getElementById('Title').value;
+    const Detail = document.getElementById('Detail').value;
+    const Locations = document.getElementById('Location').value;
+    const Category = document.getElementById('Category').value;
+    const PostStatus = 'ของหาย';
+    const Note = 'หมายเหตุ';
 
     try {
       if (selectedImage) {
@@ -28,12 +31,17 @@ function FormLostItem() {
 
         const response = await useAxios.post('/posts/form/', {
           userId,
-          title,
-          images: imageUrl, // Get Url from firebase 
-          location,
-          category,
+          Title,
+          Detail,
+          Images: imageUrl, // Get Url from firebase 
+          Locations,
+          Category,
+          PostStatus,
+          Note
         });
 
+        alert('สร้างฟอร์มสำเร็จ')
+        window.history.back();
         console.log('Response:', response.data);
       } else {
         console.error('Please select an image');
@@ -79,6 +87,7 @@ function FormLostItem() {
             <option value="ตึก 15">ตึก 15</option>
           </select><br />
           <input type="file" onChange={handleImageChange} /><br />
+          {selectedImage && ( <img src={URL.createObjectURL(selectedImage)} alt="Selected" width="150" height="150" /> )} <br/>
           <button type="button" onClick={handleSubmit} >Submit</button><br />
           <label type="button" onClick={onBack}>Back</label><br />
       </form>

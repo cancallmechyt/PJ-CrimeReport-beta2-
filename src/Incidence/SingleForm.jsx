@@ -57,8 +57,8 @@ function Post() {
                         <h2>{item.Title}</h2>
                         <p>{"รายละเอียด : " + item.Detail}</p>
                         <p>{"หมวดหมู่ : " + item.Category}</p>
-                        <p>{"สถานที่ : " + item.Location}</p>
-                        <p>{"วัน/เดือน/ปี : " + moment(item.Date).format('DD/MM/YYYY')}</p> 
+                        <p>{"สถานที่ : " + item.Locations}</p>
+                        <p>{"วัน/เดือน/ปี : " + moment(item.Dates).format('DD/MM/YYYY')}</p> 
                         <p>{"เวลา : " + moment(item.Time, 'HH:mm').format('HH:mm') + " น."}</p>
                         <img src={item.Images} width="100" height="100" />
                     </li>

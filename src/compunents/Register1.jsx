@@ -12,7 +12,7 @@ function Register1() {
             try {
                 await liff.init({ liffId: '2003845535-ZB3wNLYm' });
                 if (!liff.isLoggedIn()) {
-                    liff.login();
+                    liff.login();                    
                 } else {
                     const userProfile = await liff.getProfile();
                     setProfile(userProfile);
@@ -21,6 +21,22 @@ function Register1() {
         }; initializeLiff();
         return () => {};
     }, []);
+    
+    useEffect(() => {
+        const item = JSON.parse(localStorage.getItem('LIFF_STORE:2003845535-ZB3wNLYm:context'));
+        const UID = item.userId;
+        
+        const checkMember = async (userId) => {
+            try {
+                const response = await useAxios.get(`/members/profile/${userId}`);
+                if (response.data) {
+                    window.location.href = '/home';
+                }
+            } catch (error) { console.error(error); }
+        };
+        if (UID) {
+            checkMember(UID);
+    }}, []);
     
     const handleSubmit = async () => { 
         const firstName = document.getElementById('fname').value.trim();
@@ -107,7 +123,7 @@ function Register1() {
                         </div>
                         {/* StudentCode */}
                         <div className="form-group">  
-                            <label htmlFor="studentcode">StudentCode: </label>
+                            <label htmlFor="studentcode">UserCode: </label>
                             <input type="text" id="studentcode"/>
                         </div>
                     </div>

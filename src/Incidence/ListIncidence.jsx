@@ -36,8 +36,8 @@ function ListIncidence() {
               <p>{"สถานะ : " + val.PostStatus}</p>
               <p>{"รายละเอียด : " + val.Detail}</p>
               <p>{"หมวดหมู่ : " + val.Category}</p>
-              <p>{"สถานที่ : " + val.Location}</p>
-              <p>{"วัน/เดือน/ปี : " + moment(val.Date).format('DD/MM/YYYY')}</p> 
+              <p>{"สถานที่ : " + val.Locations}</p>
+              <p>{"วัน/เดือน/ปี : " + moment(val.Dates).format('DD/MM/YYYY')}</p> 
               <p>{"เวลา : " + moment(val.Time, 'HH:mm').format('HH:mm') + " น."}</p> 
               <img src={val.Images} width="150" height="150" alt="Post Image" />
               <p>{"หมายเหตุ : " + val.Note}</p>
