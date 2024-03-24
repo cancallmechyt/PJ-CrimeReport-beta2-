@@ -83,45 +83,99 @@ function EditForm() {
 
     return (
         <div>
-            <h1>EditForm</h1>
-            <form>
-                <label>หัวข้อ : </label>
-                <input type='text' className='title' value={value.Title} onChange={e => setValues({...value, Title : e.target.value})}></input> <br />
-                <label>รายละเอียด : </label>
-                <input type='text' className='detail' value={value.Detail} onChange={e => setValues({...value, Detail : e.target.value})}></input> <br />
-                <label>หมวดหมู่ : </label>
-                <label value={value.Category}></label>
-                <select name="category" value={value.Category} onChange={(e) => setValues({...value, Category : e.target.value})}>
-                    <option value="แจ้งเหตุ">แจ้งเหตุ</option>
-                    <option value="ของหาย">ของหาย</option>
-                    <option value="ตามหาของ">ตามหาของ</option>
-                </select> <br />
-                <label>สถานที่ : </label>
-                <select name="location" value={value.Locations} onChange={(e) => setValues({...value, Locations : e.target.value})}>
-                        <option value="ตึก 1">ตึก 1</option>
-                        <option value="ตึก 2">ตึก 2</option>
-                        <option value="ตึก 3">ตึก 3</option>
-                        <option value="ตึก 4">ตึก 4</option>
-                        <option value="ตึก 5">ตึก 5</option>
-                        <option value="ตึก 6">ตึก 6</option>
-                        <option value="ตึก 7">ตึก 7</option>
-                        <option value="ตึก 8">ตึก 8</option>
-                        <option value="ตึก 9">ตึก 9</option>
-                        <option value="ตึก 10">ตึก 10</option>
-                        <option value="ตึก 11">ตึก 11</option>
-                        <option value="ตึก 12">ตึก 12</option>
-                        <option value="ตึก 13">ตึก 13</option>
-                        <option value="ตึก 14">ตึก 14</option>
-                        <option value="ตึก 15">ตึก 15</option>
-                </select> <br />  
-                <label>Images</label> <br />
-                <img src={value.Images} width="100" height="100" alt="รูปภาพ " />
-                <label className='del' onClick={handleDeleteImage}>x</label> <br />
-                <input type="file" onChange={handleImageChange} /><br />
-            </form>
-            <button className='submit' onClick={handleSubmit}>Submit</button>
-            <button className='delete' onClick={onDelete}>Delete</button> <br />
-            <label onClick={onBack} >Back</label>
+            <nav className="w-full py-3 bg-customBlue shadow flex items-center justify-center">
+                <div className="flex items-center">
+                    <p className="text-white text-lg md:text-xl font-bold">แก้ไขรายการ</p>
+                </div>
+            </nav> 
+
+            <div className="p-8">
+                <form className="py-4">
+                    <div className="form-group">
+                        <label>หัวข้อ : </label><br/>
+                            <input type='text' 
+                            className="w-full p-2 border border-gray-300 rounded-md placeholder:font-light placeholder:text-gray-500"
+                            value={value.Title} 
+                            onChange={e => setValues({...value, Title : e.target.value})}>
+                        </input>
+                    </div>
+                    <div className="form-group" >
+                        <label>รายละเอียด : </label><br/>
+                            <input type='text' 
+                                className="w-full p-2 border border-gray-300 rounded-md placeholder:font-light placeholder:text-gray-500" 
+                                value={value.Detail} 
+                                onChange={e => setValues({...value, Detail : e.target.value})}>
+                            </input> 
+                    </div>
+                    <div className="form-group">
+                        <label>หมวดหมู่ : </label><br />
+                        <label value={value.Category}></label>
+                            <select 
+                            className="w-full rounded-md border border-gray-300"
+                            name="category" 
+                            value={value.Category} 
+                            onChange={(e) => setValues({...value, Category : e.target.value})}>
+                                <option value="แจ้งเหตุ">แจ้งเหตุ</option>
+                                <option value="ของหาย">ของหาย</option>
+                                <option value="ตามหาของ">ตามหาของ</option>
+                            </select> <br />
+                    </div>
+                    <div className="form-group">
+                        <label>สถานที่ : </label><br />
+                            <select 
+                            className="w-full rounded-md border border-gray-300"
+                            name="location" 
+                            value={value.Locations} 
+                            onChange={(e) => setValues({...value, Locations : e.target.value})}>
+                                <option value="ตึก 1">ตึก 1</option>
+                                <option value="ตึก 2">ตึก 2</option>
+                                <option value="ตึก 3">ตึก 3</option>
+                                <option value="ตึก 4">ตึก 4</option>
+                                <option value="ตึก 5">ตึก 5</option>
+                                <option value="ตึก 6">ตึก 6</option>
+                                <option value="ตึก 7">ตึก 7</option>
+                                <option value="ตึก 8">ตึก 8</option>
+                                <option value="ตึก 9">ตึก 9</option>
+                                <option value="ตึก 10">ตึก 10</option>
+                                <option value="ตึก 11">ตึก 11</option>
+                                <option value="ตึก 12">ตึก 12</option>
+                                <option value="ตึก 13">ตึก 13</option>
+                                <option value="ตึก 14">ตึก 14</option>
+                                <option value="ตึก 15">ตึก 15</option>
+                            </select> <br />  
+                    </div>
+                    <div className="form-group">
+                        <input type="file" 
+                        className="mt-3 block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-300 dark:border-gray-300 dark:placeholder-gray-300"
+                        onChange={handleImageChange} />
+                    </div>
+                    <div className="form-group flex justify-center items-center">
+                        <div className="relative w-48 h-48 mx-auto">
+                            <img 
+                                src={value.Images} 
+                                width="200" height="200" 
+                                className="mt-4 rounded-md mb-2 mx-auto"
+                                alt="ว่างเปล่า " />
+                            <label 
+                                className="absolute top-3 right-0 mt-2 mr-2 bg-red-500 text-white py-1 px-2 rounded-md text-xs font-medium" 
+                                onClick={handleDeleteImage}>
+                                ลบรูปภาพ
+                            </label>
+                        </div>
+                    </div>     
+                </form>
+            </div>
+            
+
+            <div className="flex flex-col items-center">
+                <div className="flex">
+                    <button className="mt-4 mr-2 w-auto bg-customBlue text-white p-2 rounded-lg mb-2 hover:bg-customYellow hover:text-white hover:border hover:border-gray-300" onClick={handleSubmit}>บันทึก</button>
+                    <button className="mt-4 w-auto bg-customRed text-white p-2 rounded-lg mb-2 hover:bg-customYellow hover:text-white hover:border hover:border-gray-300" onClick={onDelete}>ลบ</button>
+                </div>
+                    <label className="font-light text-gray-400 mb-8" onClick={onBack}>กลับ</label>
+            </div>
+
+
         </div>
     );
 }

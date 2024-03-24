@@ -6,7 +6,6 @@ function Register1() {
     const [profile, setProfile] = useState(null);
     const [errorMessage, setErrorMessage] = useState('');
 
-    // Liff function
     useEffect(() => {
         const initializeLiff = async () => {
             try {
@@ -21,22 +20,6 @@ function Register1() {
         }; initializeLiff();
         return () => {};
     }, []);
-    
-    useEffect(() => {
-        const item = JSON.parse(localStorage.getItem('LIFF_STORE:2003845535-ZB3wNLYm:context'));
-        const UID = item.userId;
-        
-        const checkMember = async (userId) => {
-            try {
-                const response = await useAxios.get(`/members/profile/${userId}`);
-                if (response.data) {
-                    window.location.href = '/home';
-                }
-            } catch (error) { console.error(error); }
-        };
-        if (UID) {
-            checkMember(UID);
-    }}, []);
     
     const handleSubmit = async () => { 
         const firstName = document.getElementById('fname').value.trim();
@@ -72,69 +55,95 @@ function Register1() {
             Usercode: studentcode,
             Role: role
         };
-        
+
+        const welcome = {
+            userId: profile.userId,
+            Fname: firstName,
+        };
+
+        const richmenu = {
+            userId: profile.userId,
+        };
+
         try {
-            // Connect API 
-            await useAxios.post('/members/register', data); 
+            await useAxios.post('/members/register', data); // API TO DATABASE
+
             if (role === 'user') {
-                window.location.href = '/home'; // ถ้าเป็น user ให้ไปที่ /home
+                await useAxios.post('/line/welcome', welcome); // API TO LINE
+                await useAxios.post('/line/richmenuuser', richmenu);
+                window.location.href = '/home';
+
             } else if (role === 'police') {
-                window.location.href = '/staffhome'; // ถ้าเป็น police ให้ไปที่ /StaffHome
+                await useAxios.post('/line/welcome', welcome);
+                await useAxios.post('/line/richmenupolice', richmenu);
+                window.location.href = '/staffhome'; 
             }
-        } catch (error) {
-            console.error('Error adding member:', error);
-            setErrorMessage('มีข้อผิดพลาดในการลงทะเบียน');
-        }
-        
+        } catch (error) { console.error('Error adding member:', error);}
     };
     
     
     return (
         <div>
-            <h1>Register</h1>
-                {profile ? (
-                    <div className="lineProfile">
-                        <img id="lineImg" width="150px" src={profile.pictureUrl} alt="Line Image"/>
-                        <div id="displayname">สวัสดีคุณ {profile.displayName}</div>                        
-                    </div>
-                ) : ( <div>Loading...</div> )}
+            <nav className="w-full py-3 bg-customBlue shadow flex items-center justify-center">
+                <div className="flex items-center">
+                    <p className="text-white text-lg md:text-xl font-bold">ลงทะเบียนสมาชิก</p>
+                </div>
+            </nav>
+      
+        <div className="p-8" >    
+            {profile ? (
+                <div className="flex flex-col items-center mt-4">
+                    <img className="w-32 h-32 rounded-full mb-2" src={profile.pictureUrl} alt="Line Image"/>
+                <div className="text-lg">สวัสดีคุณ {profile.displayName}</div>
+                </div>) : ( <div className="mt-4">Loading...</div>
+            )}
 
-                    {/* Register */}
-                    <div className='register'>
-                        {/* FirstName */}
-                        <div className="form-group">  
-                            <label htmlFor="fname">FirstName: </label>
-                            <input type="text" id="fname"/>
-                        </div>
-                        {/* LastName */}
-                        <div className="form-group">  
-                            <label htmlFor="lname">LastName: </label>
-                            <input type="text" id="lname"/>
-                        </div>
-                        {/* Collage */}
-                        <div className="form-group">  
-                            <label htmlFor="collage">Collage: </label>
-                            <input type="text" id="collage"/>
-                        </div>
-                        {/* Major */}
-                        <div className="form-group">  
-                            <label htmlFor="major">Major: </label>
-                            <input type="text" id="major"/>
-                        </div>
-                        {/* StudentCode */}
-                        <div className="form-group">  
-                            <label htmlFor="studentcode">UserCode: </label>
-                            <input type="text" id="studentcode"/>
-                        </div>
-                    </div>
-
-                    {/* Display Error Message */}
-                    {errorMessage && ( <div className="error-message">{errorMessage}</div> )}
-                    <div className='btn=group'>
-                        <button id="register" onClick={handleSubmit}>Register</button>
-                        {/* หลังสมัครจะบังคับส่งข้อความไปที่ LineOA แล้วจะปิดหน้าต่าง Liff ทิ้ง */}
-                    </div>
+    <div className="py-4">
+        <div className="form-group">
+            <input 
+            type="text" 
+            className="w-full p-2 border border-gray-300 rounded-md placeholder:font-light placeholder:text-gray-500" 
+            id="fname" 
+            placeholder="ชื่อ"/>
         </div>
+        <div className="py-4">
+            <input type="text" 
+            className="w-full p-2 border border-gray-300 rounded-md placeholder:font-light placeholder:text-gray-500" 
+            id="lname" 
+            placeholder="นามสกุล"/>
+        </div>
+        <div className="form-group">
+            <input type="text" 
+            className="w-full p-2 border border-gray-300 rounded-md placeholder:font-light placeholder:text-gray-500"
+            id="collage" 
+            placeholder="คณะ/วิทยาลัย"/>
+        </div>
+        <div className="py-4">
+            <input type="text" 
+            className="w-full p-2 border border-gray-300 rounded-md placeholder:font-light placeholder:text-gray-500"
+            id="major" 
+            placeholder="สาขาวิชา"/>
+        </div>
+        <div className="form-group">
+            <input type="text" 
+            className="w-full p-2 border border-gray-300 rounded-md placeholder:font-light placeholder:text-gray-500"
+            id="studentcode" 
+            placeholder="รหัสนักศึกษา/บุคลากร"/>
+        </div>
+    </div>
+    <div className="mt-4">
+        <button className="w-full bg-customBlue text-white p-2 rounded-lg mb-6 hover:bg-customYellow hover:text-white hover:border hover:border-gray-300" 
+        onClick={handleSubmit}>บันทึกข้อมูล</button>
+            <div className="flex justify-center items-center">
+                <span>มีข้อมูลที่สมัครอยู่แล้ว? &nbsp;</span>
+                <span className='hover:underline text-customBlue font-bold'> เข้าสู่ระบบ</span>
+            </div>
+    </div>
+    {errorMessage && (
+        <div className="text-center mt-4 text-red-500">{errorMessage}</div>
+    )}
+    </div>
+    </div>
     );
 }
 

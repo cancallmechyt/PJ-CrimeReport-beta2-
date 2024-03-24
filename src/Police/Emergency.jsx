@@ -5,7 +5,7 @@ import useAxios from '../useAxios';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { imageDb } from '../firebase';
 
-function FormLostItem() {
+function Emergency() {
   const [selectedImage, setSelectedImage] = useState(null);
 
   const handleImageChange = (e) => {
@@ -40,9 +40,17 @@ function FormLostItem() {
           Note
         });
 
+        const sendmessage = await useAxios.post('/line/flex',{
+          Category,
+          Title,
+          Detail,
+          Images: imageUrl, // Get Url from firebase 
+          Locations,
+        });
+
         alert('สร้างฟอร์มสำเร็จ')
         window.history.back();
-        console.log('Response:', response.data);
+        console.log('Response:', response.data, sendmessage.data );
       } else {
         console.error('Please select an image');
       }
@@ -57,7 +65,7 @@ function FormLostItem() {
 
   return (
     <div>
-
+      
       <div className="p-8">
         <form className="py-4">
           <div className="form-group">
@@ -78,8 +86,8 @@ function FormLostItem() {
           </div>
           <div className="form-group">
             <select id="Category" className="w-full p-2 border border-gray-300 rounded-md mt-1">
-              <option value="ของหาย">ของหาย</option>
-              <option value="ตามหาของ">ตามหาของ</option>
+              <option value="เหตุฉุกเฉิน">เหตุฉุกเฉิน</option>
+              <option value="กิจกรรม">กิจกรรม</option>
             </select>
           </div>
           <div className="py-4">
@@ -102,14 +110,14 @@ function FormLostItem() {
             </select>
           </div>
           <div className="form-group">
-            <input type="file" id="file" className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" onChange={handleImageChange} />
+            <input type="file" id="file" className="w-full p-2 border border-gray-300 rounded-md mt-1" onChange={handleImageChange} />
           </div>
           <div className="py-4">
             {selectedImage && ( <img src={URL.createObjectURL(selectedImage)} alt="Selected" className="w-32 h-32 rounded-md mb-2 mx-auto" />)}
           </div>
           <div className="form-group">
             <div className="flex flex-col items-center">
-              <button className="mt-4 w-full bg-customBlue text-white p-2 rounded-lg mb-2 hover:bg-customYellow hover:text-white hover:border hover:border-gray-300" onClick={handleSubmit}>ลงทะเบียน</button>
+              <button className="mt-4 w-full bg-customBlue text-white p-2 rounded-lg mb-2 hover:bg-customYellow hover:text-white hover:border hover:border-gray-300" onClick={handleSubmit}>แจ้งเหตุฉุกเฉิน</button>
               <label className="font-light text-gray-400 mb-8" type="button" onClick={onBack}>กลับ</label>
             </div>
           </div>
@@ -119,5 +127,5 @@ function FormLostItem() {
   );
 }
 
-export default FormLostItem;
+export default Emergency;
 

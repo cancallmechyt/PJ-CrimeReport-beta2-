@@ -51,31 +51,52 @@ function Post() {
 
     return (
         <div>
+            <nav className="w-full py-3 bg-customBlue shadow flex items-center justify-between">
+                <div className="flex items-center">
+                    <img src="./logo.png " className="h-7 w-7 ml-2 mr-3" />
+                    <p className="text-white text-lg md:text-xl font-bold">รายการ</p>
+                </div>
+                <div className="flex items-center justify-center flex-1">
+                </div>
+            </nav>
+
+
             <ul>
                 {postData.map((item, index) => (
-                    <li key={index}>
-                        <h2>{item.Title}</h2>
-                        <p>{"รายละเอียด : " + item.Detail}</p>
-                        <p>{"หมวดหมู่ : " + item.Category}</p>
-                        <p>{"สถานที่ : " + item.Locations}</p>
-                        <p>{"วัน/เดือน/ปี : " + moment(item.Dates).format('DD/MM/YYYY')}</p> 
-                        <p>{"เวลา : " + moment(item.Time, 'HH:mm').format('HH:mm') + " น."}</p>
-                        <img src={item.Images} width="100" height="100" />
-                    </li>
-                ))}
-                {profile.map((item, index) => (
-                    <li key={index}>
-                        <p>ข้อมูลผู้โพส</p>
-                        <p>{"ชื่อสกุล : " + item.Fname +" "+ item.Lname}</p>
-                        <p>{"คณะ : " + item.College}</p>
+                    <li key={index} className="text-center"><br />                                                                                                                              
+                        <p className="text-xl text-customYellow font-bold">{item.Category}</p>
+                        <h2 className="flex flex-col items-center mt-4 text-lg font-bold">{item.Title}</h2>
+                        <p>
+                        {moment(item.Dates).format('D MMMM YYYY')}
+                        {" • " + moment(item.Time, 'HH:mm').format('HH:mm') + " น."}
+                        </p>
+                        <img src={item.Images} width="300" height="300" className="rounded-md mb-2 mx-auto" />
+                        <p className="ml-12 text-left font-bold" >รายละเอียด</p>
+                        <p className="ml-12 text-left" >{" • " + item.Detail}</p>
+                        <p className="ml-12 text-left font-bold" >สถานที่</p>
+                        <p className="ml-12 text-left" >{" • " + item.Locations}</p><br/>
                     </li>
                 ))}
             </ul>
-            {userIdMatch && (
-                <Link to={`/posts/edit/${pid}`}>Edit</Link>
-            )}
-            <br />
-            <label id="onBack" onClick={onBack}>Back</label><br />
+
+
+            <ul>
+                {profile.map((item, index) => (
+                    <li key={index}>
+                        <p className="ml-12 text-left font-bold" >ข้อมูลผู้โพส</p>
+                        <p className="ml-12 text-left" >{"ชื่อสกุล : " + item.Fname +" "+ item.Lname}</p>
+                        <p className="ml-12 text-left" >{"คณะ : " + item.College}</p>
+                    </li>
+                ))}
+            </ul>
+
+
+            <div className="flex flex-col items-center">
+                {userIdMatch && (
+                    <Link className="mt-4 w-auto bg-customBlue text-white p-2 rounded-lg mb-2 hover:bg-customYellow hover:text-white hover:border hover:border-gray-300" 
+                    to={`/posts/edit/${pid}`}>แก้ไข</Link>)}
+                <label className="font-light text-gray-400 mb-8" id="onBack" onClick={onBack}>กลับ</label>
+            </div>
         </div>
     );
 }

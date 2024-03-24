@@ -60,7 +60,7 @@ function EditStaff() {
             }
 
             const updatedData = { ...value, Images: imageUrl, Location: value.Locations };
-            await useAxios.put(`/posts/edit/${pid}`, updatedData);
+            await useAxios.put(`/posts/editstaff/${pid}`, updatedData);
             alert('อัปเดตข้อมูลสำเร็จ');
             window.location.reload();
         } catch (error) {

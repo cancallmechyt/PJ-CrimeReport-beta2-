@@ -25,23 +25,30 @@ function CheckList() {
 
   return (
     <div>
-      <h1>CheckList</h1>
-      <ul>
-        {data.map((val) => (
-          <li key={val.pid}>
-            <Link to={`/posts/editstaff/${val.pid}`}>
-              <h2 className='Title'>{val.Title}</h2>
+      
+      <div className="flex flex-wrap">
+        {data.map((val, index) => (
+          <div key={val.pid} className={`w-full md:w-2/3 xl:w-2/4 p-6 flex flex-col ${index !== 0 ? 'border-t border-gray-300' : ''}`}>
+            <Link to={`/posts/editstaff/${val.pid}`} className="flex items-center">
+              <img src={val.Images} className="w-24 h-24 rounded-md mr-4" />
+              <div className="flex flex-col ml-4"> 
+                <h2 className='font-bold'>{val.Title}</h2>
+                <p>{"สถานะ : " + val.PostStatus}</p>
+                <p>{"สถานที่ : " + val.Locations}</p>
+                <p>{"วัน/เดือน/ปี : " + moment(val.Dates).format('DD/MM/YYYY')}</p> 
+                <p>{"เวลา : " + moment(val.Time, 'HH:mm').format('HH:mm') + " น."}</p>
+            </div> 
             </Link>
-            <p>{"สถานะ : " + val.PostStatus}</p>
-            <p>{"รายละเอียด : " + val.Detail}</p>
-            <p>{"สถานที่ : " + val.Location}</p>
-            <p>{"วัน/เดือน/ปี : " + moment(val.Date).format('DD/MM/YYYY')}</p> 
-            <p>{"เวลา : " + moment(val.Time, 'HH:mm').format('HH:mm') + " น."}</p>
-            <img src={val.Images} width="100" height="100" />
-          </li>
+          </div>
         ))}
-      </ul>
-      <button id="onBack" onClick={onBack}>กลับ</button><br />
+      </div>
+
+      <div className="flex flex-col items-center">
+        <button id="onBack" onClick={onBack} className="mt-4 w-auto bg-customBlue text-white p-2 rounded-lg mb-2 hover:bg-customYellow hover:text-white hover:border hover:border-gray-300">
+          กลับ
+        </button>
+      </div>  
+        
     </div>
   );
 }

@@ -1,13 +1,15 @@
 function About() {
   const onBack = async () => {
-    window.location.href = '/home';
+    window.history.back();
   };
 
   return (
     <div>
-      <h1>เกี่ยวกับเรา</h1>
-      <p>RSU Police</p>
-      <button className="btn-goback" onClick={onBack}>Back</button><br />
+  
+      <div className="flex flex-col items-center">
+        <label className="font-light text-gray-400 mb-8" id="onBack" onClick={onBack}>กลับ</label><br />
+      </div>
+      
     </div>
   )
 }
