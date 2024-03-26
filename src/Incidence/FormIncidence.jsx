@@ -46,6 +46,13 @@ function FormIncidence() {
     } catch (error) { console.error('Error:', error); }
   };
   
+  const onForm = async () => {
+    window.location.href = '/form';
+  };
+
+  const onFormLostItem = async () => {
+    window.location.href = '/formlostitem';
+  };
 
   const onBack = async () => {
     window.history.back();
@@ -53,6 +60,12 @@ function FormIncidence() {
 
   return (
   <div>
+    
+    <div className="flex justify-center mt-2 text-lg font-bold">
+        <label className='hover:text-customBlue text-customYellow font-bold' onClick={onForm}>แจ้งเหตุ</label>
+          <span className="mx-2">|</span>
+        <label className='label-2'onClick={onFormLostItem}>แจ้งของหาย</label>
+    </div>
 
     <div className="p-8">
       <form className="py-4">

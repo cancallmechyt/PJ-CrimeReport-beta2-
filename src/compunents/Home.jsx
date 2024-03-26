@@ -31,7 +31,18 @@ function Home() {
     const fetchAPI = async () => {
       try {
         const response = await useAxios.get('/posts/category/ของหาย');
-        setData(response.data);
+        //setData(response.data);
+        const posts = response.data.map(post => {
+          const dateObject = new Date(post.Date.seconds * 1000 + post.Date.nanoseconds / 1000000);
+          const formattedDate = moment(dateObject).format('MMM DD, YYYY');
+
+          return {
+            ...post,
+            Date: formattedDate,
+          };
+        });
+        
+        setData(posts);
         //console.log(response.data);
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -41,7 +52,7 @@ function Home() {
 
   return (
     <div>
-      <img className="mt-2" src='./event.png'/>     
+      <img src='./event.png'/>     
 
       {/* Search */}
       <div className="p-4" >
@@ -95,25 +106,24 @@ function Home() {
           {data.filter(val => 
           val.Title.toLowerCase().includes(query.toLowerCase()) || 
           val.Locations.toLowerCase().includes(query.toLowerCase()) ||
-          moment(val.Dates).format('DD/MM/YYYY').includes(query.toLowerCase()) ||
+          val.Date.toLowerCase().includes(query.toLowerCase()) ||
           moment(val.Time, 'HH:mm').format('HH:mm').includes(query.toLowerCase()) 
-          ).map((val, index) => (
-            <div key={val.pid} className={`bg-customSilver mt-2 w-full md:w-2/3 xl:w-2/4 p-6 flex flex-col ${index !== 0 ? 'border-t-2 border-gray-200 pt-6' : ''} border rounded-md`}>
-                <Link to={`/posts/${val.pid}`} className="flex items-center">
-                    <img src={val.Images} alt={val.Title} className="w-24 h-24 rounded-md mr-4" />
-                    <div className="flex flex-col">
-                        <h2 className='font-bold'>{val.Title}</h2>
-                        <p>{"สถานที่ : " + val.Locations}</p>
-                        <p>{"วัน/เดือน/ปี : " + moment(val.Dates).format('DD/MM/YYYY')}</p>
-                        <p>{"เวลา : " + moment(val.Time, 'HH:mm').format('HH:mm') + " น."}</p>
-                    </div>
-                </Link>
-            </div>
+          ).sort((a, b) => new Date(b.Date) - new Date(a.Date)).slice(0, 5)
+          .map((val, index) => (
+          <div key={val.pid} className={`bg-customSilver mt-2 w-full md:w-2/3 xl:w-2/4 p-6 flex flex-col ${index !== 0 ? 'border-t-2 border-gray-200 pt-6' : ''} border rounded-md`}>
+              <Link to={`/posts/${val.pid}`} className="flex items-center">
+                  <img src={val.Images} alt={val.Title} className="w-24 h-24 rounded-md mr-4" />
+                  <div className="flex flex-col">
+                      <h2 className='font-bold'>{val.Title}</h2>
+                      <p>{"สถานที่ : " + val.Locations}</p>
+                      <p>{"วันที่ : " + val.Date}</p>
+                      <p>{"เวลา : " + moment(val.Time, 'HH:mm').format('HH:mm') + " น."}</p>
+                  </div>
+              </Link>
+          </div>
           ))}
-
         </div>
-
-        </div>
+      </div>
     </div>
   );
 }

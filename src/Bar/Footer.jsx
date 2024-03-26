@@ -18,9 +18,9 @@ function Footer() {
 
           // ตรวจสอบ userId ที่ได้รับจาก API กับ userId ใน localStorage
           if(checkrole === 'police' || checkrole === 'admin'){
-              setRoleMatch(false);
-          } else {
               setRoleMatch(true);
+          } else {
+              setRoleMatch(false);
           }
       } catch (error) {
           console.error('Error:');

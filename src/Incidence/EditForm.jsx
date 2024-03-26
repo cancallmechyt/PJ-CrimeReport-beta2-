@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import useAxios from '../useAxios';
-
+import { Link } from "react-router-dom";
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { imageDb } from '../firebase';
 
 function EditForm() {
+    const [userRoleMatch, setRoleMatch] = useState(false);
     const [selectedImage, setSelectedImage] = useState(null);
     const { pid } = useParams();
     const [value, setValues] = useState({
@@ -34,6 +35,27 @@ function EditForm() {
         }; fetchData();
     }, [pid]);
 
+    useEffect(() => {
+        const fetchData = async () => {
+          try {         
+    
+              const item = JSON.parse(localStorage.getItem('LIFF_STORE:2003845535-ZB3wNLYm:context'));
+              const users = await useAxios.get(`/members/profile/${item.userId}`);
+              const checkrole = users.data[0].Role;
+              //console.log(checkrole);
+    
+              // ตรวจสอบ userId ที่ได้รับจาก API กับ userId ใน localStorage
+              if(checkrole === 'police' || checkrole === 'admin'){
+                  setRoleMatch(true);
+              } else {
+                  setRoleMatch(false);
+              }
+          } catch (error) {
+              console.error('Error:');
+          }
+      }; fetchData();
+    }, []);
+
     const handleDeleteImage = async () => {
         const isConfirmed = window.confirm("คุณต้องการลบรูปภาพใช่หรือไม่?");
         if (isConfirmed) {
@@ -44,7 +66,6 @@ function EditForm() {
         }
     };
     
-    //console.log(pid);
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -79,18 +100,19 @@ function EditForm() {
         setSelectedImage(e.target.files[0]); // เมื่อมีการเลือกไฟล์ใหม่ เก็บไฟล์นั้นไว้ใน state
     };
 
-    //console.log(value);
-
     return (
         <div>
-            <nav className="w-full py-3 bg-customBlue shadow flex items-center justify-center">
+            <nav className="w-full py-3 bg-customBlue shadow flex items-center justify-between">
                 <div className="flex items-center">
-                    <p className="text-white text-lg md:text-xl font-bold">แก้ไขรายการ</p>
+                    <img src={"https://firebasestorage.googleapis.com/v0/b/firevase-crud.appspot.com/o/files%2Flogo.png?alt=media&token=91918240-ef82-482c-8122-00e3428d28ae"} className="h-7 w-7 ml-2 mr-3" />
+                    <p className="text-white text-lg md:text-xl font-bold">หน้าสำหรับการแก้ไข</p>
                 </div>
-            </nav> 
+                <div className="flex items-center justify-center flex-1">
+                </div>
+            </nav>
 
             <div className="p-8">
-                <form className="py-4">
+                <form className="">
                     <div className="form-group">
                         <label>หัวข้อ : </label><br/>
                             <input type='text' 
@@ -117,7 +139,9 @@ function EditForm() {
                             onChange={(e) => setValues({...value, Category : e.target.value})}>
                                 <option value="แจ้งเหตุ">แจ้งเหตุ</option>
                                 <option value="ของหาย">ของหาย</option>
-                                <option value="ตามหาของ">ตามหาของ</option>
+                                {userRoleMatch && (
+                                    <option value="ตามหาของ">ตามหาของ</option>
+                                )}
                             </select> <br />
                     </div>
                     <div className="form-group">
@@ -175,7 +199,38 @@ function EditForm() {
                     <label className="font-light text-gray-400 mb-8" onClick={onBack}>กลับ</label>
             </div>
 
-
+            <div className="fixed bottom-0 w-full">
+                <nav className="w-full py-3 bg-customBlue shadow flex justify-around">
+                    <div className="flex items-center "> 
+                    <Link to="/home">
+                        <img src={"https://firebasestorage.googleapis.com/v0/b/firevase-crud.appspot.com/o/files%2Fhome.png?alt=media&token=e9d3ab3c-248b-48f2-9c19-7f68c01af147"} alt="Home" className="h-7 w-7" />
+                    </Link>
+                    </div>
+                    <div className="flex items-center"> 
+                    <Link to="/form">
+                        <img src={"https://firebasestorage.googleapis.com/v0/b/firevase-crud.appspot.com/o/files%2Fedit.png?alt=media&token=2daa0539-cec5-4519-a554-c2416380473d"} alt="Edit" className="h-7 w-7" />
+                    </Link>
+                    </div>
+                    {/* UserMatch */}
+                    {userRoleMatch && (
+                    <div className="flex items-center"> 
+                        <Link to="/staffhome">
+                            <img src={"https://firebasestorage.googleapis.com/v0/b/firevase-crud.appspot.com/o/files%2Fpolice.png?alt=media&token=546b38b4-b06d-42ac-8497-bc37ffeed2ba"} alt="Edit" className="h-7 w-7" />
+                        </Link>
+                    </div>                  
+                    )}
+                    <div className="flex items-center"> 
+                    <Link to="/list">
+                        <img src={"https://firebasestorage.googleapis.com/v0/b/firevase-crud.appspot.com/o/files%2Fmine.png?alt=media&token=67ba893f-9aac-44c2-adaa-c7044947399e"} alt="Mine" className="h-7 w-7" />
+                    </Link>
+                    </div>
+                    <div className="flex items-center"> 
+                    <Link to="/profile">
+                        <img src={"https://firebasestorage.googleapis.com/v0/b/firevase-crud.appspot.com/o/files%2Fprofile.png?alt=media&token=b459073e-d0d7-40dc-9430-e211e671ee79"} alt="Profile" className="h-7 w-7" />
+                    </Link>
+                    </div>
+                </nav>
+            </div>
         </div>
     );
 }

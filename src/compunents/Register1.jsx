@@ -81,7 +81,10 @@ function Register1() {
         } catch (error) { console.error('Error adding member:', error);}
     };
     
-    
+    const onLogin = async () => {
+        window.location.href = '/login';
+      };
+
     return (
         <div>
             <nav className="w-full py-3 bg-customBlue shadow flex items-center justify-center">
@@ -136,7 +139,7 @@ function Register1() {
         onClick={handleSubmit}>บันทึกข้อมูล</button>
             <div className="flex justify-center items-center">
                 <span>มีข้อมูลที่สมัครอยู่แล้ว? &nbsp;</span>
-                <span className='hover:underline text-customBlue font-bold'> เข้าสู่ระบบ</span>
+                <span onClick={onLogin} className='hover:underline text-customBlue font-bold'> เข้าสู่ระบบ</span>
             </div>
     </div>
     {errorMessage && (

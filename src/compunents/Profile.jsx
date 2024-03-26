@@ -4,6 +4,7 @@ import liff from '@line/liff';
 
 const Profile = () => {
     const [profile, setProfile] = useState(null);
+
     useEffect(() => {
         const initializeLiff = async () => {
             try {
@@ -22,8 +23,9 @@ const Profile = () => {
         };  initializeLiff();  
     }, []);
 
-
     const logout = async () => {
+        const info = JSON.parse(localStorage.getItem('LIFF_STORE:2003845535-ZB3wNLYm:context'))
+        await useAxios.post('/line/richmenudefault', info).userId;
         liff.logout();
         window.location.href = '/register';
     }
@@ -34,12 +36,6 @@ const Profile = () => {
 
     return (
         <div>
-            {/* <nav className="w-full py-3 bg-customBlue shadow flex items-center justify-center">
-                <div className="flex items-center">
-                    <p className="text-white text-lg md:text-xl font-bold">ลงทะเบียนสมาชิก</p>
-                </div>
-            </nav> */}
-
             {profile ? (
                 <div className="flex flex-col items-center mt-4">
                     <img className="mt-4 w-32 h-32 rounded-full mb-2" id="lineImg" width="150px" src={profile.pictureUrl} alt="Line Image"/>

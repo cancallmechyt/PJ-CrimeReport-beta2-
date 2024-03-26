@@ -1,12 +1,32 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import useAxios from '../useAxios';
 
-// FireBase
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { imageDb } from '../firebase';
 
 function FormLostItem() {
   const [selectedImage, setSelectedImage] = useState(null);
+  const [userRoleMatch, setRoleMatch] = useState(false);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {         
+
+          const item = JSON.parse(localStorage.getItem('LIFF_STORE:2003845535-ZB3wNLYm:context'));
+          const users = await useAxios.get(`/members/profile/${item.userId}`);
+          const checkrole = users.data[0].Role;
+  
+          if(checkrole === 'police' || checkrole === 'admin'){
+              setRoleMatch(true);
+              console.log("ok");
+          } else {
+              setRoleMatch(false);
+          }
+      } catch (error) {
+          console.error('Error:');
+      }
+    }; fetchData();
+  }, []);  
 
   const handleImageChange = (e) => {
     setSelectedImage(e.target.files[0]);
@@ -20,7 +40,7 @@ function FormLostItem() {
     const Detail = document.getElementById('Detail').value;
     const Locations = document.getElementById('Location').value;
     const Category = document.getElementById('Category').value;
-    const PostStatus = 'ของหาย';
+    const PostStatus = document.getElementById('PostStatus').value;
     const Note = 'หมายเหตุ';
 
     try {
@@ -33,7 +53,7 @@ function FormLostItem() {
           userId,
           Title,
           Detail,
-          Images: imageUrl, // Get Url from firebase 
+          Images: imageUrl, 
           Locations,
           Category,
           PostStatus,
@@ -51,12 +71,26 @@ function FormLostItem() {
     }
   };
 
+  const onForm = async () => {
+    window.location.href = '/form';
+  };
+
+  const onFormLostItem = async () => {
+    window.location.href = '/formlostitem';
+  };
+
   const onBack = async () => {
     window.history.back();
   };
 
   return (
     <div>
+
+      <div className="flex justify-center mt-2 text-lg font-bold">
+          <label className='label-2' onClick={onForm}>แจ้งเหตุ</label>
+            <span className="mx-2">|</span>
+          <label className='hover:text-customBlue text-customYellow font-bold'onClick={onFormLostItem}>แจ้งของหาย</label>
+      </div>
 
       <div className="p-8">
         <form className="py-4">
@@ -79,7 +113,15 @@ function FormLostItem() {
           <div className="form-group">
             <select id="Category" className="w-full p-2 border border-gray-300 rounded-md mt-1">
               <option value="ของหาย">ของหาย</option>
-              <option value="ตามหาของ">ตามหาของ</option>
+                {userRoleMatch && (
+                  <option value="ตามหาของ">ตามหาของ</option>
+                )}
+            </select>
+          </div>
+          <div className="mt-4 form-group">
+            <select id="PostStatus" className="w-full p-2 border border-gray-300 rounded-md mt-1">
+              <option value="กำลังตามหา">กำลังตามหา</option>
+              <option value="เรียบร้อย">เสร็จสิ้น</option>
             </select>
           </div>
           <div className="py-4">

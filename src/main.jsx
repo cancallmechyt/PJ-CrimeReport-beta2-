@@ -18,6 +18,7 @@ import EditForm from './Incidence/EditForm.jsx'
 import CheckList from './Police/CheckList.jsx'
 import EditStaff from './Police/EditStaff.jsx'
 import Emergency from './Police/Emergency.jsx'
+import Login from './compunents/Login.jsx'
 
 import './index.css'
 import {createBrowserRouter, RouterProvider,} from "react-router-dom";
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
   {
     path: "/register",
     element: <Register1 />,
+  },
+  {
+    path: "/login",
+    element: <Login />,
   },
   {
     path: "/home",

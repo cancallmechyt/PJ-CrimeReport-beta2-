@@ -74,7 +74,7 @@ function Emergency() {
               className="w-full p-2 border border-gray-300 rounded-md placeholder:font-light placeholder:text-gray-500"
               id="Title"
               placeholder="หัวข้อ"
-            />
+            /> 
           </div>
           <div className="py-4">
             <input 
@@ -110,7 +110,7 @@ function Emergency() {
             </select>
           </div>
           <div className="form-group">
-            <input type="file" id="file" className="w-full p-2 border border-gray-300 rounded-md mt-1" onChange={handleImageChange} />
+            <input type="file" id="file" className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" onChange={handleImageChange} />
           </div>
           <div className="py-4">
             {selectedImage && ( <img src={URL.createObjectURL(selectedImage)} alt="Selected" className="w-32 h-32 rounded-md mb-2 mx-auto" />)}
