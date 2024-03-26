@@ -70,19 +70,19 @@ function StaffHome() {
             <div className="p-4 rounded-lg text-xs bg-customBlue hover:bg-customYellow text-white text-center flex items-center justify-center"> 
               <Link to="/checklist">
                 <img src="./05.png" alt="Logo" className="h-10 w-10 mx-auto" />
-                รับแจ้งเหตุ
+                  รับแจ้งเหตุ
               </Link>
             </div>
             <div className="p-4 rounded-lg text-xs bg-customBlue hover:bg-customYellow text-white text-center flex items-center justify-center"> 
               <Link to="/lostitem">
                 <img src="./01.png" alt="Logo" className="h-10 w-10 mx-auto" />
-                รายการของหาย
+                  รายการของหาย
               </Link>
             </div>
             <div className="p-4 rounded-lg text-xs bg-customBlue hover:bg-customYellow text-white text-center flex items-center justify-center">
-              <Link to="/guide">
-                <img src="./02.png" alt="Logo" className="h-10 w-10 mx-auto" />
-                  แนะนำระบบ
+              <Link to="/checkfinditem">
+                <img src="./09.png" alt="Logo" className="h-10 w-10 mx-auto" />
+                  ตามหาเจ้าของ
               </Link>
             </div>
           </div>

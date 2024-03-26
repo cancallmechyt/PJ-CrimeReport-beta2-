@@ -30,10 +30,6 @@ const Profile = () => {
         window.location.href = '/register';
     }
 
-    const onBack = async () => {
-        window.history.back();
-    };
-
     return (
         <div>
             {profile ? (
@@ -59,7 +55,6 @@ const Profile = () => {
                     onClick={logout}>
                     ออกจากระบบ
                 </button>
-                <label className="font-light text-gray-400 mb-8" onClick={onBack}>กลับ</label>
             </div>
         </div>
     );

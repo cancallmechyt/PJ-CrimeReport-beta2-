@@ -16,6 +16,7 @@ import SingleForm from './Incidence/SingleForm.jsx'
 import FormLostItem from './Incidence/FormLostItem.jsx'
 import EditForm from './Incidence/EditForm.jsx'
 import CheckList from './Police/CheckList.jsx'
+import CheckFindItem from './Police/CheckFindItem.jsx'
 import EditStaff from './Police/EditStaff.jsx'
 import Emergency from './Police/Emergency.jsx'
 import Login from './compunents/Login.jsx'
@@ -81,20 +82,24 @@ const router = createBrowserRouter([
     element: <Layout><CheckList /></Layout>,
   },
   {
+    path: "/checkfinditem",
+    element: <Layout><CheckFindItem /></Layout>,
+  },
+  {
     path: "/emergency",
     element: <Layout><Emergency /></Layout>,
   },
   {
     path: "/posts/:pid",
-    element: <SingleForm />,
+    element: <Layout><SingleForm /></Layout>,
   },
   {
     path: "/posts/edit/:pid",
-    element: <EditForm />,
+    element: <Layout><EditForm /></Layout>,
   },
   {
     path: "/posts/editstaff/:pid",
-    element: <EditStaff />,
+    element: <Layout><EditStaff /></Layout>,
   },
 
 ]);

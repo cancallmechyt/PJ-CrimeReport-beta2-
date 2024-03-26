@@ -44,10 +44,6 @@ function ListIncidence() {
 
     fetchAPI();
   }, []);
-  
-  const onBack = async () => {
-    window.location.href = '/home';
-  };
 
   return (
     <div className="p-4" > 
@@ -89,13 +85,6 @@ function ListIncidence() {
           </div>
         ))}
       </div>
-
-      <div className="flex flex-col items-center">
-        <button className="mt-4 w-auto bg-customBlue text-white p-2 rounded-lg mb-2 hover:bg-customYellow hover:text-white hover:border hover:border-gray-300"
-          id="onBack" onClick={onBack}>กลับ
-        </button>
-      </div>  
-      
     </div>
   );
 }

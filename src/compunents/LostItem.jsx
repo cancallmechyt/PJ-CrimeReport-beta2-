@@ -31,10 +31,6 @@ function LostItem() {
     }; fetchAPI();
   }, []);
 
-  const onBack = async () => {
-    window.location.href = '/home';
-  };
-
   const onLostItem = async () => {
     window.location.href = '/lostitem';
   };
@@ -87,10 +83,6 @@ function LostItem() {
             </Link>
           </div>
         ))}
-      </div>
-
-      <div className="flex flex-col items-center">
-        <label className="font-light text-gray-400 mb-8" id="onBack" onClick={onBack}>กลับ</label><br />
       </div>
     </div>
   );

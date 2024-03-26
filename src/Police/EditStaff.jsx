@@ -86,10 +86,6 @@ function EditStaff() {
         } catch (error) { console.error('เกิดข้อผิดพลาดในการลบโพสต์:', error); }
     };
     
-    const onBack = async () => {
-        window.history.back();
-    };
-    
     const handleImageChange = (e) => {
         setSelectedImage(e.target.files[0]); // เมื่อมีการเลือกไฟล์ใหม่ เก็บไฟล์นั้นไว้ใน state
     };
@@ -98,15 +94,6 @@ function EditStaff() {
 
     return (
         <div> 
-            <nav className="w-full py-3 bg-customBlue shadow flex items-center justify-between">
-                <div className="flex items-center">
-                    <img src={"https://firebasestorage.googleapis.com/v0/b/firevase-crud.appspot.com/o/files%2Flogo.png?alt=media&token=91918240-ef82-482c-8122-00e3428d28ae"} className="h-7 w-7 ml-2 mr-3" />
-                    <p className="text-white text-lg md:text-xl font-bold">หน้าสำหรับเจ้าหน้าที่การแก้ไข</p>
-                </div>
-                <div className="flex items-center justify-center flex-1">
-                </div>
-            </nav>
-
             <div className="p-6">
             <form>
                 <div className="form-group">
@@ -117,8 +104,8 @@ function EditStaff() {
                     value={value.PostStatus} 
                     onChange={(e) => setValues({...value, PostStatus : e.target.value})}>
                         <option value="กำลังดำเนินการ">กำลังดำเนินการ</option>
-                        <option value="เสร็จสิ้น">เสร็จสิ้น</option>
-                        <option value="รอติดตาม">รอติดตาม</option>
+                        <option value="กำลังตามหา">กำลังตามหา</option>
+                        <option value="เสร็จสิ้น">เสร็จสิ้น</option>      
                     </select>
                 </div>
                 <div className="mt-1 form-group">
@@ -206,39 +193,7 @@ function EditStaff() {
                 <button className="mt-4 mr-2 w-auto bg-customBlue text-white p-2 rounded-lg mb-2 hover:bg-customYellow hover:text-white hover:border hover:border-gray-300" onClick={handleSubmit}>บันทึก</button>
                 <button className="mt-4 w-auto bg-customRed text-white p-2 rounded-lg mb-2 hover:bg-customYellow hover:text-white hover:border hover:border-gray-300" onClick={onDelete}>ลบ</button> <br />
             </div>
-                <label className="font-light text-gray-400 mb-8" onClick={onBack} >Back</label>        
-        </div>
-
-        <div className="fixed bottom-0 w-full">
-            <nav className="w-full py-3 bg-customBlue shadow flex justify-around">
-                <div className="flex items-center "> 
-                    <Link to="/home">
-                        <img src={"https://firebasestorage.googleapis.com/v0/b/firevase-crud.appspot.com/o/files%2Fhome.png?alt=media&token=e9d3ab3c-248b-48f2-9c19-7f68c01af147"} alt="Home" className="h-7 w-7" />
-                    </Link>
-                    </div>
-                    <div className="flex items-center"> 
-                    <Link to="/form">
-                        <img src={"https://firebasestorage.googleapis.com/v0/b/firevase-crud.appspot.com/o/files%2Fedit.png?alt=media&token=2daa0539-cec5-4519-a554-c2416380473d"} alt="Edit" className="h-7 w-7" />
-                    </Link>
-                    </div>
-                    <div className="flex items-center"> 
-                        <Link to="/staffhome">
-                            <img src={"https://firebasestorage.googleapis.com/v0/b/firevase-crud.appspot.com/o/files%2Fpolice.png?alt=media&token=546b38b4-b06d-42ac-8497-bc37ffeed2ba"} alt="Edit" className="h-7 w-7" />
-                        </Link>
-                    </div>                  
-                    <div className="flex items-center"> 
-                    <Link to="/list">
-                        <img src={"https://firebasestorage.googleapis.com/v0/b/firevase-crud.appspot.com/o/files%2Fmine.png?alt=media&token=67ba893f-9aac-44c2-adaa-c7044947399e"} alt="Mine" className="h-7 w-7" />
-                    </Link>
-                    </div>
-                    <div className="flex items-center"> 
-                    <Link to="/profile">
-                        <img src={"https://firebasestorage.googleapis.com/v0/b/firevase-crud.appspot.com/o/files%2Fprofile.png?alt=media&token=b459073e-d0d7-40dc-9430-e211e671ee79"} alt="Profile" className="h-7 w-7" />
-                    </Link>
-                </div>
-            </nav>
-        </div>                
-
+        </div>             
     </div>
 );}
 

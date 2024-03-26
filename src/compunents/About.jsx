@@ -5,6 +5,8 @@ function About() {
 
   return (
     <div>
+      <img src='./pic.jpg'/> 
+
       <div className="max-w-lg mx-auto py-8 px-4">
         <h1 className="text-2xl font-bold mb-4">ช่องทางการติดต่อ</h1>
         <div className="space-y-2">
@@ -19,11 +21,6 @@ function About() {
           <p>Facebook : <a href="https://www.facebook.com/สำนักงานตำรวจมหาวิทยาลัยรังสิต">สำนักงานตำรวจมหาวิทยาลัยรังสิต</a></p>
         </div>
       </div>
-
-      <div className="flex flex-col items-center">
-        <label className="font-light text-gray-400 mb-8" id="onBack" onClick={onBack}>กลับ</label><br />
-      </div>
-      
     </div>
   )
 }

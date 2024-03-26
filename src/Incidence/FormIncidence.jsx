@@ -54,10 +54,6 @@ function FormIncidence() {
     window.location.href = '/formlostitem';
   };
 
-  const onBack = async () => {
-    window.history.back();
-  };
-
   return (
   <div>
     
@@ -112,7 +108,6 @@ function FormIncidence() {
           )}
         <div className="flex flex-col items-center">
           <button className="mt-4 w-full bg-customBlue text-white p-2 rounded-lg mb-2 hover:bg-customYellow hover:text-white hover:border hover:border-gray-300" onClick={handleSubmit}>แจ้งเรื่อง</button>
-          <label className="font-light text-gray-400 mb-8" type="button" onClick={onBack}>กลับ</label>
         </div>
       </form>
     </div>

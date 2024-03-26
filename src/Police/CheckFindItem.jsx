@@ -3,14 +3,14 @@ import useAxios from '../useAxios';
 import moment from 'moment';
 import { Link } from "react-router-dom";
 
-function CheckList() {
+function CheckFindItem() {
   const [data, setData] = useState([]);
   const [query, setQuery] = useState("");
 
   useEffect(() => {
     const fetchAPI = async () => {
       try {
-        const response = await useAxios.get('/posts/category/แจ้งเหตุ');
+        const response = await useAxios.get('/posts/category/ตามหาของ');
         const posts = response.data.map(post => {
           const dateObject = new Date(post.Date.seconds * 1000 + post.Date.nanoseconds / 1000000);
           const formattedDate = moment(dateObject).format('MMM DD, YYYY');
@@ -85,4 +85,4 @@ function CheckList() {
   );
 }
 
-export default CheckList
+export default CheckFindItem
